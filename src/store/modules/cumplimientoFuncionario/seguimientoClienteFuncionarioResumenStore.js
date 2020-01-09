@@ -7,7 +7,6 @@ export default {
         errorMessage: '',
         resumenCumplimientoFuncionarioAnalisis: {},
         fechaActualizacionVentas: {},
-        listaFuncionarioClientes: []
     },
     mutations: {
         setResumenCumplimientoFuncionarioAnalisis(state, resumenCumplimientoFuncionarioAnalisis) {
@@ -27,15 +26,6 @@ export default {
             state.errorMessage = message;
             state.fechaActualizacionVentas = {};
         },
-        setListaFuncionarioClientes( state, data ) {
-            state.listaFuncionarioClientes = data
-        },
-        setErrorListaFuncionarioClientes(state, message) {
-            state.error = true;
-            state.errorMessage = message;
-            state.listaFuncionarioClientes = [];
-        },
-
     },
     actions: {
         async cargarResumenCumplimientoFuncionarioAnalisis({commit}, {codPersonal, codPresupuesto}) {
@@ -58,18 +48,8 @@ export default {
                 console.log('La peticion para obtener cargarFechaActualizacionVentas a terminado');
             }
         },
-        async cargarListaFuncionarioClientes({commit}, { codPresupuesto, codPersonal } ) {
-            try {
-                console.log("Entra a revisar : " + codPresupuesto + " :: " + codPersonal );
-                const data = await SeguimientoClienteFuncionarioService.obtenerListadoFuncionarioClientes( codPresupuesto, codPersonal );
-                commit('setListaFuncionarioClientes', data);
-            } catch (e) {
-                commit('setErrorListaFuncionarioClientes', e.message);
-            } finally {
-                console.log('La peticion para obtener cargarListaFuncionarioClientes a terminado');
-            }
-        }
     },
     getters: {
+
     }
- }
+}

@@ -1,65 +1,62 @@
 <template>
     <div>
 
+      <div class="vertical-box with-grid inbox bg-light">
+            <div class="vertical-box-column width-200 hidden-xs">
 
-       <div class="row">
+                <div class="vertical-box">
 
-           <!-- begin widget-table -->
-           <table class="table table-bordered widget-table widget-table-rounded table-valign-middle">
-               <thead>
-               <tr>
-                   <th>Cliente</th>
-                   <th>Total Ventas Bs.</th>
-                   <th>Total Ventas BPH Bs.</th>
-                   <th>Total Ventas COFAR Bs.</th>
-                   <th>Total Descuento fidelidad calculado Bs.</th>
-                   <th>Total Descuento fidelidad Aplicado Bs.</th>
-               </tr>
-               </thead>
-               <tbody>
+                    <div class="d-flex align-items-center justify-content">
+                        <ul class="profile-header-tab nav nav-tabs">
+                            <li class="nav-item"><a href="javascript:;" v-on:click="show('dashboard')" v-bind:class="{ 'active': tab.dashboard }" class="nav-link" data-toggle="tab">DASHBOARD</a></li>
+                            <li class="nav-item"><a href="javascript:;" v-on:click="show('clientes')" v-bind:class="{ 'active': tab.clientes }" class="nav-link" data-toggle="tab">CLIENTES</a></li>
 
-                   <tr v-for="cliente in listaFuncionarioClientes" :key="cliente.codCliente">
-                       <td>
-                           <h4 class="widget-table-title">{{ cliente.nombreCliente }}</h4>
-                       </td>
-                       <td>
-                           <b class="text-inverse">{{ cliente.totalVentaActual | moneda  }}</b><br/>
-                           <p class="widget-table-desc m-b-15">Mes anterior: {{ cliente.totalVentaAnterior | moneda  }} </p>
+                        </ul>
+                    </div>
 
-                           <b v-if="cliente.totalVentaActual > cliente.totalVentaAnterior " class="clearfix text-green"> + {{ cliente.totalVentaActual - cliente.totalVentaAnterior | moneda  }}</b>
-                           <b v-else class="clearfix text-red"> {{ cliente.totalVentaActual - cliente.totalVentaAnterior | moneda  }}</b>
-                       </td>
-                       <td>
-                           <b class="text-inverse">{{ cliente.totalVentaActualBph | moneda  }}</b><br />
-                           <p class="widget-table-desc m-b-15">Mes anterior: {{ cliente.totalVentaAnterior | moneda  }} </p>
+                </div>
 
-                           <b v-if="cliente.totalVentaActualBph > cliente.totalVentaAnteriorBph " class="clearfix text-green"> + {{ cliente.totalVentaActualBph - cliente.totalVentaAnteriorBph | moneda  }}</b>
-                           <b v-else class="clearfix text-red"> {{ cliente.totalVentaActualBph - cliente.totalVentaAnteriorBph | moneda  }}</b>
-                       </td>
-                       <td>
-                           <b class="text-inverse">{{ cliente.totalVentaActualCofar | moneda  }}</b><br />
-                           <p class="widget-table-desc m-b-15">Mes anterior: {{ cliente.totalVentaAnteriorCofar | moneda  }} </p>
+            </div>
+        </div>
+        <!-- end profile -->
 
-                           <b v-if="cliente.totalVentaActualCofar > cliente.totalVentaAnteriorCofar " class="clearfix text-green"> + {{ cliente.totalVentaActualCofar - cliente.totalVentaAnteriorCofar | moneda  }}</b>
-                           <b v-else class="clearfix text-red"> {{ cliente.totalVentaActualCofar - cliente.totalVentaAnteriorCofar | moneda  }}</b>
-                       </td>
-                       <td class="table-td-valign-middle">
-                           <span v-if="cliente.totalVentaDescuentoFidelidadCalculado <= 0 " class="badge bg-silver-darker f-s-12">{{ cliente.totalVentaDescuentoFidelidadCalculado | moneda }}</span>
-                           <span v-else class="badge bg-blue f-s-12">{{ cliente.totalVentaDescuentoFidelidadCalculado | moneda }}</span>
-                       </td>
-                       <td>
-                           <span v-if="cliente.totalVentaDescuentoFidelidadAplicado == 0 && cliente.totalVentaDescuentoFidelidadCalculado == 0" class="badge bg-silver-darker f-s-12">{{ cliente.totalVentaDescuentoFidelidadAplicado | moneda }}</span>
-                           <span v-else-if="cliente.totalVentaDescuentoFidelidadAplicado == 0 && cliente.totalVentaDescuentoFidelidadCalculado > 0" class="badge bg-red f-s-12">{{ cliente.totalVentaDescuentoFidelidadAplicado | moneda }}</span>
-                           <span v-else-if="cliente.totalVentaDescuentoFidelidadAplicado + 5 < cliente.totalVentaDescuentoFidelidadCalculado > 0" class="badge bg-orange f-s-12">{{ cliente.totalVentaDescuentoFidelidadAplicado | moneda }}</span>
-                           <span v-else class="badge bg-green f-s-12">{{ cliente.totalVentaDescuentoFidelidadAplicado | moneda }}</span>
+        <!-- begin profile-content -->
+        <div class="profile-content bg-white p-t-5">
+            <!-- begin tab-content -->
+            <div class="tab-content p-0">
+                <!-- begin #profile-post tab -->
+                <div class="tab-pane fade" v-bind:class="{ 'show active': tab.dashboard }">
+                    <!-- begin dashboard -->
 
-                       </td>
-                   </tr>
+                    <div class="widget-chart with-sidebar bg-white">
+                        <div class="widget-chart-content bg-white">
 
-               </tbody>
-           </table>
-           <!-- end widget-table -->
-       </div>
+                            <resumen-cliente-funcionario-seguimiento></resumen-cliente-funcionario-seguimiento>
+
+                            <listado-clientes-funcionario-ventas></listado-clientes-funcionario-ventas>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <!-- end #profile-post tab -->
+                <!-- begin #profile-about tab -->
+                <div class="tab-pane fade" v-bind:class="{ 'show active': tab.clientes }">
+                    <!-- begin table -->
+                    <div class="table-responsive form-inline">
+                        tabla
+                    </div>
+                    <!-- end table -->
+                </div>
+                <!-- end #profile-about tab -->
+
+            </div>
+            <!-- end tab-content -->
+        </div>
+        <!-- end profile-content -->
+
 
 
     </div>
@@ -70,6 +67,12 @@
     import accounting from 'accounting'
     import PageOptions from '../../config/PageOptions'
     import Vue from 'vue'
+    import ListadoClientesSeguimientoFuncionario
+        from "@/components/presupuestoFuncionario/listadoClientesSeguimientoFuncionario";
+    import BuscadorFormClientesFuncionario from "@/components/presupuestoFuncionario/buscadorFormClientesFuncionario";
+    import ListadoClientesFuncionarioVentas from "@/components/presupuestoFuncionario/listadoClientesFuncionarioVentas";
+    import ResumenClienteFuncionarioSeguimiento
+        from "@/components/presupuestoFuncionario/resumenClienteFuncionarioSeguimiento";
 
     Vue.filter('moneda', function (valor) {
         return accounting.formatMoney(valor, "", 2, ".", ",");
@@ -77,29 +80,41 @@
 
     export default {
         name: "seguimientoClienteFuncionario",
-        components: {},
+        components: {
+            ResumenClienteFuncionarioSeguimiento,
+            ListadoClientesFuncionarioVentas,
+            BuscadorFormClientesFuncionario, ListadoClientesSeguimientoFuncionario},
         data() {
             return {
-
+                tab: {
+                    dashboard: true,
+                    clientes: false,
+                }
             }
         },
         mounted() {
-            this.cargarResumenCumplimientoFuncionarioAnalisis({
-                codPersonal: this.datosUsuario.usuario.id,
-                codPresupuesto: this.mesPresupuestoSeguiemiento.codPresupuesto
-            });
-            this.cargarFechaActualizacionVentas(this.datosUsuario.usuario.codAreaEmpresa);
             this.cargarListaFuncionarioClientes({
                 codPresupuesto: this.mesPresupuestoSeguiemiento.codPresupuesto,
                 codPersonal: this.datosUsuario.usuario.id
             });
         },
         methods: {
-            ...mapActions('seguimientoClienteFuncionarioStore', ['cargarResumenCumplimientoFuncionarioAnalisis', 'cargarFechaActualizacionVentas', 'cargarListaFuncionarioClientes'])
+            ...mapActions('seguimientoFuncionarioClientesStore', ['cargarListaFuncionarioClientes']),
+            show: function(x) {
+                this.tab.dashboard = false;
+                this.tab.clientes = false;
+                switch (x) {
+                    case 'clientes':
+                        this.tab.clientes = true;
+                        break;
+                    default:
+                        this.tab.dashboard = true;
+                        break;
+                }
+            }
         },
         computed: {
             ...mapState('authModule', ['datosUsuario', 'mesPresupuestoSeguiemiento']),
-            ...mapState('seguimientoClienteFuncionarioStore', ['resumenCumplimientoFuncionarioAnalisis', 'fechaActualizacionVentas', 'listaFuncionarioClientes']),
         },
         created() {
             PageOptions.pageContentFullWidth = true;

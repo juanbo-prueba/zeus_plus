@@ -66,7 +66,7 @@
     export default {
         data() {
             return {
-                usuario: 'jlopez',
+                usuario: '',
                 password: 'cofar.2019',
             }
         },
