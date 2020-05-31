@@ -1,14 +1,17 @@
 <template>
     <!-- begin login -->
     <div class="login login-with-news-feed">
+
         <!-- begin news-feed -->
         <div class="news-feed">
-            <div class="news-image" style="background-image: url(/public/img/login-bg/login-bg-11.jpg)"></div>
+            <div class="news-image" style="background-image: url(/assets/img/login-bg/login-bg-16.jpg)"></div>
             <div class="news-caption">
+
                 <h4 class="caption-title"><b>Color</b> Admin App</h4>
                 <p>
                     Download the Color Admin app for iPhone®, iPad®, and Android™. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </p>
+
             </div>
         </div>
         <!-- end news-feed -->
@@ -16,13 +19,28 @@
         <div class="right-content">
             <!-- begin login-header -->
             <div class="login-header">
-                <div class="brand">
-                    <span class="logo"></span> <b>ZEUS</b> plus
-                    <small>Sistemas de presupuesto</small>
-                </div>
-                <div class="icon">
-                    <i class="fa fa-sign-in"></i>
-                </div>
+
+
+               <!-- <span class="navbar-brand">
+					<span >
+
+                &lt;!&ndash; begin widget-img &ndash;&gt;
+					<img src="../assets/img/user/iconzplus.png" height="34" width="34"/>
+
+
+
+				</span>
+					<b class="p-l-5 p-r-5">Zeus </b> Plus	</span>-->
+
+                <p class="text-center" >
+                    <img src="../assets/img/user/logozeusvertical.png" height="50%" width="50%"/>
+
+
+
+<!--                    <b class="p-l-5 p-r-5">ZEUS</b> Plus-->
+<!--                    <small>Sistemas de presupuesto</small>-->
+                </p>
+
             </div>
             <!-- end login-header -->
             <!-- begin login-content -->
@@ -41,12 +59,12 @@
                         </label>
                     </div>
                     <div class="login-buttons">
-                        <button type="submit" @click="login" class="btn btn-success btn-block btn-lg">Sign me in</button>
+                        <button type="submit" @click="login" class="btn btn-primary btn-block btn-lg">Iniciar sesión</button>
                     </div>
 
                     <hr />
                     <p class="text-center text-grey-darker">
-                        &copy; Color Admin All Right Reserved 2019
+                        Departamento de Sistemas 2020
                     </p>
                 </div>
             </div>
@@ -66,7 +84,7 @@
     export default {
         data() {
             return {
-                usuario: '',
+                usuario: 'jlopez',
                 password: 'cofar.2019',
             }
         },

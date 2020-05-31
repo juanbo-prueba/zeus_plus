@@ -10,7 +10,7 @@
 		<!-- end page-header -->
 		<panel title="Panel title here">
 			<p>
-				Panel content here
+				<img src="../assets/img/user/user-13.jpg" height="128" width="128"/>
 			</p>
 		</panel>
 	</div>

@@ -26,7 +26,6 @@ export default {
     actions: {
         async cargarListaFuncionarioClientes({commit}, { codPresupuesto, codPersonal } ) {
             try {
-                console.log("ENTRA A cargarListaFuncionarioClientes")
                 const data = await SeguimientoClienteFuncionarioService.obtenerListadoFuncionarioClientes( codPresupuesto, codPersonal );
                 commit('setListaFuncionarioClientes', data);
             } catch (e) {

@@ -28,8 +28,17 @@
                     <b class="text-inverse">{{ props.row.totalVentaActual | moneda  }}</b><br/>
                     <p class="widget-table-desc m-b-15">Mes anterior: {{ props.row.totalVentaAnterior | moneda  }} </p>
 
-                    <b v-if="props.row.totalVentaActual > props.row.totalVentaAnterior " class="clearfix text-green"> + {{ props.row.totalVentaActual - props.row.totalVentaAnterior | moneda  }}</b>
-                    <b v-else class="clearfix text-red"> {{ props.row.totalVentaActual - props.row.totalVentaAnterior | moneda  }}</b>
+                    <div v-if="props.row.totalVentaActual > props.row.totalVentaAnterior" class="row pull-right">
+                        <b  class="clearfix text-green">  + {{ props.row.totalVentaActual - props.row.totalVentaAnterior | moneda  }}</b>
+                        <i class="fas fa-arrow-alt-circle-up fa-lg text-green p-l-10 p-r-10"></i>
+                    </div>
+
+                    <span v-else class="row pull-right">
+                         <b class="clearfix text-red"> {{ props.row.totalVentaActual - props.row.totalVentaAnterior | moneda  }}</b>
+                         <i class="fas fa-arrow-alt-circle-down fa-lg text-red p-l-10 p-r-10"></i>
+                    </span>
+
+
                 </span>
                 <span v-if="props.column.field == 'totalVentaActualBph'">
                     <b class="text-inverse">{{ props.row.totalVentaActualBph | moneda  }}</b><br />
@@ -62,7 +71,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapActions, mapState } from 'vuex'
 
     export default {
         name: "listadoClientesFuncionarioVentas",
@@ -82,7 +91,7 @@
                         },
                     },
                     {
-                        label: 'Ventas Bs',
+                        label: 'Total Ventas Bs',
                         field: 'totalVentaActual',
                         type: 'number',
                     },
@@ -97,7 +106,7 @@
                         type: 'number',
                     },
                     {
-                        label: 'Fidelidad calculado Bs.',
+                        label: 'Fidelidad Calculado Bs.',
                         field: 'totalVentaDescuentoFidelidadCalculado',
                         type: 'number',
                     },
@@ -109,10 +118,21 @@
                 ],
             }
         },
+        mounted() {
+            this.cargarListaFuncionarioClientes({
+                codPresupuesto: this.mesPresupuestoSeguiemiento.codPresupuesto,
+                codPersonal: this.datosUsuario.usuario.id
+            });
+        },
+        methods: {
+            ...mapActions('seguimientoFuncionarioClientesStore', ['cargarListaFuncionarioClientes']),
+        },
         computed: {
             ...mapGetters({
                 listaFuncionarioClientes: 'seguimientoFuncionarioClientesStore/filteredClientes'
-            })
+            }),
+            ...mapState('authModule', ['datosUsuario', 'mesPresupuestoSeguiemiento']),
+            ...mapState('seguimientoFuncionarioClientesStore', ['listaFuncionarioClientes']),
         }
     }
 </script>

@@ -89,13 +89,13 @@
 
                     </cumplimiento-linea-mkt-fucionario>
 
-                    <cumplimiento-presentacion-funcionario
+                    <CumplimientoPresentacionFuncionario
                             :filtrarPresentacionesMkt="filtrarPresentacionesMkt"
                             :filtroCodLineaMkt="filtroCodLineaMkt"
                             :options="options"
                             @update="updateFiltro">
 
-                    </cumplimiento-presentacion-funcionario>
+                    </CumplimientoPresentacionFuncionario>
                     <!-- end dashboard -->
                 </div>
                 <!-- end #profile-post tab -->

@@ -9,7 +9,19 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<router-link to="/dashboard/v2" class="navbar-brand"><span class="navbar-logo"></span> <b>Zeus</b> Plus</router-link>
+
+				<span class="navbar-brand">
+					<span >
+
+                <!-- begin widget-img -->
+					<img src="../../assets/img/user/logozeushorizontal.png" height="80%" width="80%"/>
+
+
+
+				</span>
+<!--					<b class="p-l-5 p-r-5">Zeus </b> Plus-->
+				</span>
+
 				<button type="button" class="navbar-toggle pt-0 pb-0 mr-0 collapsed" v-on:click="toggleMobileTopMenu" v-if="pageOptions.pageWithTopMenu && !pageOptions.pageWithoutSidebar">
 					<span class="fa-stack fa-lg text-inverse">
 						<i class="far fa-square fa-stack-2x"></i>

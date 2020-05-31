@@ -26,29 +26,32 @@
             <div class="tab-content p-0">
                 <!-- begin #profile-post tab -->
                 <div class="tab-pane fade" v-bind:class="{ 'show active': tab.dashboard }">
-                    <!-- begin dashboard -->
 
-                    <div class="widget-chart with-sidebar bg-white">
-                        <div class="widget-chart-content bg-white">
+                    <fecha-actualizacion-ventas></fecha-actualizacion-ventas>
 
-                            <resumen-cliente-funcionario-seguimiento></resumen-cliente-funcionario-seguimiento>
+                    <kpi-promotor-ventas
+                            :resumenCumplimientoFuncionarioAnalisis="resumenCumplimientoFuncionarioAnalisis">
+                    </kpi-promotor-ventas>
 
-                            <listado-clientes-funcionario-ventas></listado-clientes-funcionario-ventas>
+                    <kpi-grafico-promotor-lineas></kpi-grafico-promotor-lineas>
 
-                        </div>
-                    </div>
+                    <kpi-seguimiento-lineas-mkt></kpi-seguimiento-lineas-mkt>
 
+                    <kpi-seguimiento-presentaciones-funcionario></kpi-seguimiento-presentaciones-funcionario>
 
 
                 </div>
                 <!-- end #profile-post tab -->
                 <!-- begin #profile-about tab -->
                 <div class="tab-pane fade" v-bind:class="{ 'show active': tab.clientes }">
-                    <!-- begin table -->
-                    <div class="table-responsive form-inline">
-                        tabla
-                    </div>
-                    <!-- end table -->
+                    <fecha-actualizacion-ventas></fecha-actualizacion-ventas>
+
+                    <resumen-cliente-funcionario-seguimiento
+                            :resumenCumplimientoFuncionarioAnalisis="resumenCumplimientoFuncionarioAnalisis">
+                    </resumen-cliente-funcionario-seguimiento>
+
+                    <listado-clientes-funcionario-ventas></listado-clientes-funcionario-ventas>
+
                 </div>
                 <!-- end #profile-about tab -->
 
@@ -67,12 +70,15 @@
     import accounting from 'accounting'
     import PageOptions from '../../config/PageOptions'
     import Vue from 'vue'
-    import ListadoClientesSeguimientoFuncionario
-        from "@/components/presupuestoFuncionario/listadoClientesSeguimientoFuncionario";
-    import BuscadorFormClientesFuncionario from "@/components/presupuestoFuncionario/buscadorFormClientesFuncionario";
     import ListadoClientesFuncionarioVentas from "@/components/presupuestoFuncionario/listadoClientesFuncionarioVentas";
     import ResumenClienteFuncionarioSeguimiento
         from "@/components/presupuestoFuncionario/resumenClienteFuncionarioSeguimiento";
+    import KpiPromotorVentas from "@/components/presupuestoFuncionario/kpiPromotorVentas";
+    import FechaActualizacionVentas from "@/components/presupuestoFuncionario/fechaActualizacionVentas";
+    import KpiGraficoPromotorLineas from "@/components/presupuestoFuncionario/kpiGraficoPromotorLineas";
+    import KpiSeguimientoLineasMkt from "@/components/presupuestoFuncionario/kpiSeguimientoLineasMkt";
+    import KpiSeguimientoPresentacionesFuncionario
+        from "@/components/presupuestoFuncionario/kpiSeguimientoPresentacionesFuncionario";
 
     Vue.filter('moneda', function (valor) {
         return accounting.formatMoney(valor, "", 2, ".", ",");
@@ -81,9 +87,14 @@
     export default {
         name: "seguimientoClienteFuncionario",
         components: {
+            KpiSeguimientoPresentacionesFuncionario,
+            KpiSeguimientoLineasMkt,
+            KpiGraficoPromotorLineas,
+            FechaActualizacionVentas,
+            KpiPromotorVentas,
             ResumenClienteFuncionarioSeguimiento,
             ListadoClientesFuncionarioVentas,
-            BuscadorFormClientesFuncionario, ListadoClientesSeguimientoFuncionario},
+            },
         data() {
             return {
                 tab: {
@@ -93,13 +104,13 @@
             }
         },
         mounted() {
-            this.cargarListaFuncionarioClientes({
-                codPresupuesto: this.mesPresupuestoSeguiemiento.codPresupuesto,
-                codPersonal: this.datosUsuario.usuario.id
+            this.cargarResumenCumplimientoFuncionarioAnalisis({
+                codPersonal: this.datosUsuario.usuario.id,
+                codPresupuesto: this.mesPresupuestoSeguiemiento.codPresupuesto
             });
         },
         methods: {
-            ...mapActions('seguimientoFuncionarioClientesStore', ['cargarListaFuncionarioClientes']),
+            ...mapActions('seguimientoClienteFuncionarioResumenStore', ['cargarResumenCumplimientoFuncionarioAnalisis', 'cargarListaFuncionarioClientes']),
             show: function(x) {
                 this.tab.dashboard = false;
                 this.tab.clientes = false;
@@ -115,6 +126,7 @@
         },
         computed: {
             ...mapState('authModule', ['datosUsuario', 'mesPresupuestoSeguiemiento']),
+            ...mapState('seguimientoClienteFuncionarioResumenStore', ['resumenCumplimientoFuncionarioAnalisis']),
         },
         created() {
             PageOptions.pageContentFullWidth = true;
