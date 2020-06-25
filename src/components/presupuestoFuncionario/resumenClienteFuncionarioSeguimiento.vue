@@ -16,11 +16,11 @@
                 <div class="row">
                     <div class="col-xl-2 col-3">
                         <h3 class="mb-1"> {{
-                            resumenCumplimientoFuncionarioAnalisis.porcentajeCumplimientoTotal |
+                            ( resumenCumplimiento.montoVentasTotal/resumenCumplimientoFuncionarioAnalisis.montoPresupuestoTotal) * 100 |
                             moneda }} %</h3>
                         <div>Lineas BPH y COFAR</div>
                         <div class="text-grey-darker f-s-11 text-truncate">
-                            Ventas Bs.: {{ resumenCumplimientoFuncionarioAnalisis.montoVentasTotal
+                            Ventas Bs.: {{ resumenCumplimiento.montoVentasTotal
                             | moneda }}
                         </div>
                         <div class="text-grey-darker f-s-11 text-truncate">
@@ -31,11 +31,11 @@
                     </div>
                     <div class="col-xl-2 col-3">
                         <h3 class="mb-1"> {{
-                            resumenCumplimientoFuncionarioAnalisis.porcentajeCumplimientoBph |
+                            ( resumenCumplimiento.montoVentasBph / resumenCumplimientoFuncionarioAnalisis.montoPresupuestoBph) * 100 |
                             moneda }} %</h3>
                         <div>Linea <b class="text-orange">BPH</b></div>
                         <div class="text-grey-darker f-s-11 text-truncate">
-                            Ventas Bs.: {{ resumenCumplimientoFuncionarioAnalisis.montoVentasBph |
+                            Ventas Bs.: {{ resumenCumplimiento.montoVentasBph |
                             moneda }}
                         </div>
                         <div class="text-grey-darker f-s-11 text-truncate">
@@ -45,11 +45,11 @@
                     </div>
                     <div class="col-xl-2 col-3">
                         <h3 class="mb-1"> {{
-                            resumenCumplimientoFuncionarioAnalisis.porcentajeCumplimientoCofar |
+                            ( resumenCumplimiento.montoVentasCofar / resumenCumplimientoFuncionarioAnalisis.montoPresupuestoCofar ) * 100 |
                             moneda }} %</h3>
                         <div>Linea <b class="text-purple"> COFAR</b></div>
                         <div class="text-grey-darker f-s-11 text-truncate">
-                            Ventas Bs.: {{ resumenCumplimientoFuncionarioAnalisis.montoVentasCofar
+                            Ventas Bs.: {{ resumenCumplimiento.montoVentasCofar
                             | moneda }}
                         </div>
                         <div class="text-grey-darker f-s-11 text-truncate">
@@ -85,7 +85,7 @@
 </template>
 
 <script>
-
+    import { mapGetters } from 'vuex'
     export default {
         name: "resumenClienteFuncionarioSeguimiento",
         props: ['resumenCumplimientoFuncionarioAnalisis'],
@@ -94,6 +94,9 @@
         methods: {
         },
         computed: {
+            ...mapGetters({
+                resumenCumplimiento: 'seguimientoFuncionarioClientesStore/totalFiltroVentas'
+            }),
         },
     }
 </script>

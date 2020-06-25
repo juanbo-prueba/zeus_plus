@@ -25,6 +25,31 @@ const routes = [
         path: '/cumplimientoFucionario/seguimientoCliente',
         name: 'seguimiento cliente',
         component: () => import(/* webpackChunkName: "todos-update" */ '@/pages/cumplimientoFucionario/seguimientoClienteFuncionario')
+    },
+    {
+        path: '/cumplimientoFucionario/seguimientoFuncionarioCliente',
+        name: 'seguimiento de ventas a cliente',
+        component: () => import(/* webpackChunkName: "todos-update" */ '@/pages/cumplimientoFucionario/seguimientoClientesVentas')
+    },
+    {
+        path: '/cumplimientoFucionario/seguimientoAnalisisCliente/:codCliente',
+        name: 'seguimientoAnalisisCliente',
+        component: () => import(/* webpackChunkName: "todos-update" */ '@/pages/cumplimientoFucionario/seguimientoAnalisisCliente'),
+        redirect: {
+            name: 'route.details'
+        },
+        children: [
+            { alias: '',
+              path: 'details',
+              name: 'route.details',
+                component: () => import(/* webpackChunkName: "todos-update" */ '@/components/presupuestoFuncionario/analisisClientes/comportamientoVentasCliente'),
+            },
+            { path: 'secondary',
+                name: 'route.secondary',
+                component: () => import(/* webpackChunkName: "todos-update" */ '@/components/presupuestoFuncionario/analisisClientes/ventasPorLineaVentaDeCliente'),
+            },
+
+        ]
     }
 ]
 

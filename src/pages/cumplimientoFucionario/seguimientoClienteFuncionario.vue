@@ -50,6 +50,7 @@
                             :resumenCumplimientoFuncionarioAnalisis="resumenCumplimientoFuncionarioAnalisis">
                     </resumen-cliente-funcionario-seguimiento>
 
+                    <buscador-form-clientes-funcionario></buscador-form-clientes-funcionario>
                     <listado-clientes-funcionario-ventas></listado-clientes-funcionario-ventas>
 
                 </div>
@@ -79,6 +80,7 @@
     import KpiSeguimientoLineasMkt from "@/components/presupuestoFuncionario/kpiSeguimientoLineasMkt";
     import KpiSeguimientoPresentacionesFuncionario
         from "@/components/presupuestoFuncionario/kpiSeguimientoPresentacionesFuncionario";
+    import BuscadorFormClientesFuncionario from "@/components/presupuestoFuncionario/buscadorFormClientesFuncionario";
 
     Vue.filter('moneda', function (valor) {
         return accounting.formatMoney(valor, "", 2, ".", ",");
@@ -87,6 +89,7 @@
     export default {
         name: "seguimientoClienteFuncionario",
         components: {
+            BuscadorFormClientesFuncionario,
             KpiSeguimientoPresentacionesFuncionario,
             KpiSeguimientoLineasMkt,
             KpiGraficoPromotorLineas,
@@ -110,7 +113,7 @@
             });
         },
         methods: {
-            ...mapActions('seguimientoClienteFuncionarioResumenStore', ['cargarResumenCumplimientoFuncionarioAnalisis', 'cargarListaFuncionarioClientes']),
+            ...mapActions('seguimientoClienteFuncionarioResumenStore', ['cargarResumenCumplimientoFuncionarioAnalisis']),
             show: function(x) {
                 this.tab.dashboard = false;
                 this.tab.clientes = false;

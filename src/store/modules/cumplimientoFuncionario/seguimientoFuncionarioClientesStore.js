@@ -7,7 +7,8 @@ export default {
         errorMessage: '',
         listaFuncionarioClientes: [],
         filter: {
-            query: ''
+            query: '',
+            selectClientes: 'Todos'
         }
     },
     mutations: {
@@ -20,7 +21,9 @@ export default {
             state.listaFuncionarioClientes = [];
         },
         setFilter (state, data) {
+            console.log("2 set filter")
             state.filter[data['filter']] = data.value
+            console.log("4 termina set filter")
         }
     },
     actions: {
@@ -37,11 +40,54 @@ export default {
     },
     getters: {
         filteredClientes ( state ) {
-            let clientes = state.listaFuncionarioClientes;
-            if ( state.filter.query.length > 1 ) {
-                clientes = clientes.filter(cliente => cliente.nombreCliente.includes(state.filter.query) )
+            console.log("3 filteredclientes")
+            let clientesVentas = state.listaFuncionarioClientes;
+       /*     if( state.filter.query.length > 1 ) {
+                clientesVentas = clientesVentas.filter(cliente => cliente.nombreCliente.includes(state.filter.query));
+            }*/
+            if ( state.filter.selectClientes == 'Todos'){
+
             }
-            return clientes;
+
+            if ( state.filter.selectClientes == 'Clientes con ventas'){
+                clientesVentas = clientesVentas.filter(cliente => cliente.totalVentaActual > 0 );
+            }
+
+            if ( state.filter.selectClientes == 'Clientes sin ventas'){
+                clientesVentas = clientesVentas.filter(cliente => cliente.totalVentaActual <= 0 );
+            }
+
+            if ( state.filter.selectClientes == 'Clientes con descuento fidelidad'){
+                clientesVentas = clientesVentas.filter(cliente => cliente.totalVentaDescuentoFidelidadCalculado > 0 );
+            }
+
+            if ( state.filter.selectClientes == 'Clientes sin descuento fidelidad'){
+                clientesVentas = clientesVentas.filter(cliente => cliente.totalVentaDescuentoFidelidadCalculado <= 0 );
+            }
+
+            if ( state.filter.selectClientes == 'Clientes aplicado descuento fidelidad'){
+                clientesVentas = clientesVentas.filter(cliente => cliente.totalVentaDescuentoFidelidadAplicado > 0 );
+            }
+
+            if ( state.filter.selectClientes == 'Clientes no aplicado descuento fidelidad'){
+                clientesVentas = clientesVentas.filter(cliente => cliente.totalVentaDescuentoFidelidadAplicado <= 0 );
+            }
+
+            return clientesVentas;
+        },
+        totalFiltroVentas: (state, getters) => {
+            let montoVentasTotal = 0;
+            let montoVentasBph = 0;
+            let montoVentasCofar = 0;
+            let clientesVentas = getters.filteredClientes;
+
+            clientesVentas.forEach( cliente => {
+                montoVentasTotal += cliente.totalVentaActual;
+                montoVentasBph += cliente.totalVentaActualBph;
+                montoVentasCofar += cliente.totalVentaActualCofar;
+            })
+
+            return { montoVentasTotal, montoVentasBph,  montoVentasCofar}
         }
     }
 }

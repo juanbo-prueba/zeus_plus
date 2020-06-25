@@ -1,6 +1,7 @@
 <template>
     <div>
-        <vue-good-table
+
+           <vue-good-table
                 :columns="columns"
                 :rows="listaFuncionarioClientes"
                 :line-numbers="true"
@@ -30,13 +31,13 @@
 
                     <div v-if="props.row.totalVentaActual > props.row.totalVentaAnterior" class="row pull-right">
                         <b  class="clearfix text-green">  + {{ props.row.totalVentaActual - props.row.totalVentaAnterior | moneda  }}</b>
-                        <i class="fas fa-arrow-alt-circle-up fa-lg text-green p-l-10 p-r-10"></i>
+                        <span class="text-success"> <i class="fas fa-arrow-alt-circle-up fa-lg text-green p-l-10 p-r-10"></i></span>
                     </div>
 
                     <span v-else class="row pull-right">
                          <b class="clearfix text-red"> {{ props.row.totalVentaActual - props.row.totalVentaAnterior | moneda  }}</b>
-                         <i class="fas fa-arrow-alt-circle-down fa-lg text-red p-l-10 p-r-10"></i>
-                    </span>
+                        <span class="text-success">  <i class="fas fa-arrow-alt-circle-down fa-lg text-red p-l-10 p-r-10"></i></span>
+                     </span>
 
 
                 </span>
@@ -63,8 +64,15 @@
                     <span v-else-if="props.row.totalVentaDescuentoFidelidadAplicado == 0 && props.row.totalVentaDescuentoFidelidadCalculado > 0" class="badge bg-red f-s-12">{{ props.row.totalVentaDescuentoFidelidadAplicado | moneda }}</span>
                     <span v-else-if="props.row.totalVentaDescuentoFidelidadAplicado + 5 < props.row.totalVentaDescuentoFidelidadCalculado > 0" class="badge bg-orange f-s-12">{{ props.row.totalVentaDescuentoFidelidadAplicado | moneda }}</span>
                     <span v-else class="badge bg-green f-s-12">{{ props.row.totalVentaDescuentoFidelidadAplicado | moneda }}</span>
-
                 </span>
+                <span v-if="props.column.field == 'accion'">
+                    <span class="pull-right hidden-print">
+					    <router-link :to="{ name: 'seguimientoAnalisisCliente', params: {codCliente: props.row.codCliente } }" class="btn btn-sm btn-white m-b-10 mr-2">
+							Ver cliente
+						</router-link>
+                    </span>
+                </span>
+
             </template>
         </vue-good-table>
     </div>
@@ -115,6 +123,10 @@
                         field: 'totalVentaDescuentoFidelidadAplicado',
                         type: 'number',
                     },
+                    {
+                        label: 'Accion',
+                        field: 'accion'
+                    },
                 ],
             }
         },
@@ -131,8 +143,9 @@
             ...mapGetters({
                 listaFuncionarioClientes: 'seguimientoFuncionarioClientesStore/filteredClientes'
             }),
-            ...mapState('authModule', ['datosUsuario', 'mesPresupuestoSeguiemiento']),
-            ...mapState('seguimientoFuncionarioClientesStore', ['listaFuncionarioClientes']),
+
+            ...mapState('authModule', ['datosUsuario', 'mesPresupuestoSeguiemiento'])
+            //,...mapState('seguimientoFuncionarioClientesStore', ['listaFuncionarioClientes']),
         }
     }
 </script>
