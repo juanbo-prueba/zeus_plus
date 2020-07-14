@@ -11,8 +11,11 @@
                     <!-- begin invoice-company -->
                     <div class="invoice-company">
 				<span class="pull-right ">
-					<a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10"><i class="fa fa-print fa-fw fa-lg"></i> Volver</a>
+<!--					<router-link :to="{ name: 'route.listadoSegumientoClientes' }"  class="btn btn-sm btn-white m-b-10"><i class="fa fa-print fa-fw fa-lg"></i> Volver</router-link>-->
+                    <router-link :to="{ name: 'route.listadoSegumientoClientes' }"  class="btn btn-sm btn-white m-b-10"><i class="fa fa-chevron-left  m-r-3"></i>    Volver atras</router-link>
+
 				</span>
+
                         ANGEL DE LUZ
                     </div>
                     <!-- end invoice-company -->
@@ -43,10 +46,16 @@
                             <!--<ul class="nav nav-pills justify-content-center">-->
                             <ul class="nav nav-pills">
                                 <li class="nav-item" v-on:click="tab = 1">
-                                    <router-link :to="{ name: 'route.details' }" class="btn btn-default m-r-3 " v-bind:class="{ 'active': tab === 1 }" >Ventas y cobranzas</router-link>
+                                    <router-link :to="{ name: 'route.ventascobranzas' }" class="btn btn-default m-r-3 " v-bind:class="{ 'active': tab === 1 }" >Ventas y cobranzas</router-link>
                                 </li>
                                 <li class="nav-item"  v-on:click="tab = 2">
-                                    <router-link :to="{ name: 'route.secondary' }" class="btn btn-default"  v-bind:class="{ 'active': tab === 2 }">Ventas por linea de venta</router-link>
+                                    <router-link :to="{ name: 'route.ventaslineaventa' }" class="btn btn-default m-r-3"  v-bind:class="{ 'active': tab === 2 }">Ventas por linea de venta</router-link>
+                                </li>
+                                <li class="nav-item"  v-on:click="tab = 3">
+                                    <router-link :to="{ name: 'route.ventaslineasMktBphCliente' }" class="btn btn-default m-r-3"  v-bind:class="{ 'active': tab === 3 }">Ventas lineas Mkt BPH</router-link>
+                                </li>
+                                <li class="nav-item"  v-on:click="tab = 4">
+                                    <router-link :to="{ name: 'route.ventaslineasMktCofarCliente' }" class="btn btn-default m-r-3"  v-bind:class="{ 'active': tab === 4 }">Ventas lineas Mkt Cofar</router-link>
                                 </li>
                             </ul>
                         </div>

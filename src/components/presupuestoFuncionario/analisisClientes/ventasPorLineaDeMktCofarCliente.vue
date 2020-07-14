@@ -1,7 +1,7 @@
 <template>
     <div>
         <grafico-lineal
-                :listaDatosGraficolineal = "listaVentasPorLineaDeVenta"
+                :listaDatosGraficolineal = "listaDatosGraficolineal"
                 :tituloGrafico = "tituloGrafico"
                 :coloresLineas = "coloresLineas"
                 :posicionLeyenda = "posicionLeyenda"
@@ -29,29 +29,30 @@
     })
 
     export default {
-        name: "ventasPorLineaVentaDeCliente",
+        name: "ventasPorLineaDeMktCofarCliente",
         components: {
             GraficoLineal
         },
         data(){
-            return {
+            return{
                 codCliente: this.$route.params.codCliente,
-                tituloGrafico: "Ventas por lineas de venta BPH y COFAR",
-                coloresLineas: ["#ff9f1a", "#6F1E51"],
+                tituloGrafico: "Ventas por lineas de marketing Cofar",
+                coloresLineas: ["#7ab800", "#0085c3", "#f2af00", "#dc5034", "#ce1126", "#b7295a", "#6e2585", "#71c6c1", "#5482ab", "#009bbb", "#003a70"],
                 posicionLeyenda: "bottom"
             }
         },
         mounted() {
-            this.cargarVentasPorLineaDeVentaDeCliente( {
-                codCliente: this.codCliente
+            this.cargarVentasPorLineaDeMarketingDeCliente( {
+                codCliente: this.codCliente,
+                codLineaVenta: 2
             } );
         },
         methods: {
-            ...mapActions('seguimientoClientesStore', ['cargarVentasPorLineaDeVentaDeCliente']),
+            ...mapActions('seguimientoClientesStore', ['cargarVentasPorLineaDeMarketingDeCliente']),
         },
         computed: {
-            ...mapState('seguimientoClientesStore', ['listaVentasPorLineaDeVenta']),
-        },
+            ...mapState('seguimientoClientesStore', ['listaDatosGraficolineal']),
+        }
     }
 </script>
 

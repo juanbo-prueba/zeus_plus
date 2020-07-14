@@ -9,6 +9,14 @@ export default {
         listaComportamientoVentasCliente: {
             categories:[],
             datos:[]
+        },
+        listaVentasPorLineaDeVenta: {
+            categories:[],
+            datos:[]
+        },
+        listaDatosGraficolineal: {
+            categories:[],
+            datos:[]
         }
     },
     mutations: {
@@ -21,7 +29,24 @@ export default {
         setErrorComportamientoVentasCliente(state, message) {
             state.error = true;
             state.errorMessage = message;
-            state.comportamientoVentasCliente = {};
+            state.comportamientoVentasCliente = {categories:[], datos:[]};
+        },
+        setListaVentasPorLineaDeVenta( state, data ) {
+            state.listaVentasPorLineaDeVenta = data
+        },
+        setErrorListaVentasPorLineaDeVenta(state, message) {
+            state.error = true;
+            state.errorMessage = message;
+            state.listaVentasPorLineaDeVenta = { categories:[],  datos:[]};
+        },
+
+        setListaDatosGraficolineal( state, data ) {
+            state.listaDatosGraficolineal = data
+        },
+        setErrorListaDatosGraficolineal(state, message) {
+            state.error = true;
+            state.errorMessage = message;
+            state.listaDatosGraficolineal = { categories:[],  datos:[]};
         }
     },
     actions: {
@@ -37,18 +62,31 @@ export default {
                 console.log('La peticion para obtener cargarComportamientoVentasCliente a terminado');
             }
         },
-/*        async cargardetalle({commit}, { codCliente } ) {
+        async cargarVentasPorLineaDeVentaDeCliente({commit}, { codCliente } ) {
             try {
                 console.log( "codCliente: " + codCliente );
-                const data = await SeguimientoClienteService.obtenerComportamientoVentasCliente( codCliente );
+                const data = await SeguimientoClienteService.obtenerVentasPorLineaDeVentaDeCliente( codCliente );
 
-                commit('setListaResumen', data);
+                commit('setListaVentasPorLineaDeVenta', data);
             } catch (e) {
-                commit('setErrorComportamientoVentasCliente', e.message);
+                commit('setErrorListaVentasPorLineaDeVenta', e.message);
             } finally {
-                console.log('La peticion para obtener cargarComportamientoVentasCliente a terminado');
+                console.log('La peticion para obtener cargarVentasPorLineaDeVentaDeCliente a terminado');
             }
-        }*/
+        },
+        async cargarVentasPorLineaDeMarketingDeCliente({commit}, { codCliente, codLineaVenta } ) {
+            try {
+                console.log( "codCliente: " + codCliente );
+                const data = await SeguimientoClienteService.obtenerVentasPorLineaDeMarketingDeCliente( codCliente, codLineaVenta );
+
+                commit('setListaDatosGraficolineal', data);
+            } catch (e) {
+                commit('setErrorListaDatosGraficolineal', e.message);
+            } finally {
+                console.log('La peticion para obtener cargarVentasPorLineaDeMarketingDeCliente a terminado');
+            }
+        },
+
     },
     getters: {
         getDetalleVentasCobranzas (state) {

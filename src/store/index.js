@@ -9,6 +9,8 @@ import seguimientoClienteFuncionarioResumenStore from "@/store/modules/cumplimie
 import seguimientoFuncionarioClientesStore from "@/store/modules/cumplimientoFuncionario/seguimientoFuncionarioClientesStore";
 import seguimientoClienteKpiGraficos from "@/store/modules/cumplimientoFuncionario/seguimientoClienteKpiGraficos";
 import seguimientoClientesStore from "@/store/modules/cumplimientoFuncionario/seguimientoClientesStore";
+import dashboardFuncionarioCumplimientoStore from "@/store/modules/cumplimientoFuncionario/dashboardFuncionarioCumplimientoStore"
+
 
 
 export default new Vuex.Store({
@@ -19,7 +21,7 @@ export default new Vuex.Store({
         seguimientoClienteFuncionarioResumenStore,
         seguimientoFuncionarioClientesStore,
         seguimientoClienteKpiGraficos,
-        seguimientoClientesStore
-
+        seguimientoClientesStore,
+        dashboardFuncionarioCumplimientoStore
     }
 })

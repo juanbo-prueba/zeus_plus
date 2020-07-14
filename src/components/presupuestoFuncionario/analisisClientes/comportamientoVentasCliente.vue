@@ -1,7 +1,12 @@
 <template>
     <div>
-       <apexchart width="1000" height="350" type="line" :options="chartOptions4" :series="series3"></apexchart>
-
+        <grafico-lineal
+                :listaDatosGraficolineal = "listaComportamientoVentasCliente"
+                :tituloGrafico = "tituloGrafico"
+                :coloresLineas = "coloresLineas"
+                :posicionLeyenda = "posicionLeyenda"
+        >
+        </grafico-lineal>
         <br/>
 
         <div class="table-responsive">
@@ -36,6 +41,7 @@
     import accounting from 'accounting'
     import Vue from 'vue'
     import moment from 'moment'
+    import GraficoLineal from "@/components/graficos/GraficoLineal";
 
     Vue.filter('formatDate', function(value) {
         if (value) {
@@ -50,9 +56,15 @@
 
     export default {
         name: "comportamientoVentasCliente",
+        components: {
+            GraficoLineal
+        },
         data() {
             return {
                 codCliente: this.$route.params.codCliente,
+                tituloGrafico: "Ventas, descuento fidelidad y Cobranzas",
+                coloresLineas: ["#00a8ff", "#79d70f", "#e84118"],
+                posicionLeyenda: "bottom",
             }
         },
         mounted() {
@@ -69,99 +81,6 @@
             ...mapGetters({
                 detalleVentasCobranzas: 'seguimientoClientesStore/getDetalleVentasCobranzas'
             }),
-
-            series3() {
-                return  this.listaComportamientoVentasCliente.datos
-            },
-            chartOptions4() {
-                return {
-                    tooltip: {
-
-                        x: {
-                            show: true,
-                            format: 'MMM yy',
-                            formatter: undefined,
-                        },
-
-                    },
-                    chart: {
-                        toolbar: {
-                            show: false
-                        }
-                    },
-                    legend: {
-                        show: true,
-                        position: 'top',
-                        horizontalAlign: 'center',
-                        floating: true,
-                        offsetX: 10,
-                        offsetY: -15,
-                        height: 30,
-                        containerMargin: {
-                            top: 30,
-                            bottom: 30,
-                        },
-                    },
-                    colors: [ "#00a8ff", "#79d70f", "#e84118"
-                    ],
-                    title: {
-                        text: 'Ventas y Cobranzas',
-                        align: 'center',
-                        style: {
-                            fontSize:  '16px',
-                            fontWeight:  900,
-                            color:  '#3f3f44'
-                        },
-                    },
-                    dataLabels: {
-                        enabled: true,
-                    },
-                    markers: {
-                        size: 1
-                    },
-
-                    stroke: {
-                        width: 4
-                    },
-
-                      xaxis: {
-                          type: "datetime", //category
-                          categories: this.listaComportamientoVentasCliente.categories,
-                          labels: {
-                              format: "MMM yy"
-                          },
-
-                      } ,
-
-                  }
-
-
-               /* this.cargardetalle.filter( dato =>{
-                    console.log( dato )
-                } )*/
-          /*      this.comportamientoVentasCliente.map((item)=>{
-                    console.log( item)
-                })*/
-            },
-   /*         detalleVentasCobranzas(){
-
-                let detalleVentas = [];
-                console.log("Entrea deatallleconbra")
-                console.log( this.comportamientoVentasCliente)
-
-
-                    let nvector = this.comportamientoVentasCliente.tiempo.categories.length;
-                    for ( var i = nvector - 1; i >= 0; i--) {
-                        let fecha = this.comportamientoVentasCliente.tiempo.categories[ i ];
-                        let montoVenta = this.comportamientoVentasCliente.datos[0].data[ i ];
-                        let montoCobranza = this.comportamientoVentasCliente.datos[1].data[ i ];
-                        let montoFidelidad = this.comportamientoVentasCliente.datos[2].data[ i ];
-                        detalleVentas.push({fecha: fecha, montoVenta: montoVenta, montoCobranza: montoCobranza, montoFidelidad: montoFidelidad})
-                    }
-
-                 return detalleVentas;
-            },*/
-
         },
     }
 </script>

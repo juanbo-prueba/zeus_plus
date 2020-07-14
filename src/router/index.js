@@ -28,7 +28,7 @@ const routes = [
     },
     {
         path: '/cumplimientoFucionario/seguimientoFuncionarioCliente',
-        name: 'seguimiento de ventas a cliente',
+        name: 'route.listadoSegumientoClientes',
         component: () => import(/* webpackChunkName: "todos-update" */ '@/pages/cumplimientoFucionario/seguimientoClientesVentas')
     },
     {
@@ -36,21 +36,54 @@ const routes = [
         name: 'seguimientoAnalisisCliente',
         component: () => import(/* webpackChunkName: "todos-update" */ '@/pages/cumplimientoFucionario/seguimientoAnalisisCliente'),
         redirect: {
-            name: 'route.details'
+            name: 'route.ventascobranzas'
         },
         children: [
             { alias: '',
               path: 'details',
-              name: 'route.details',
+              name: 'route.ventascobranzas',
                 component: () => import(/* webpackChunkName: "todos-update" */ '@/components/presupuestoFuncionario/analisisClientes/comportamientoVentasCliente'),
             },
             { path: 'secondary',
-                name: 'route.secondary',
+                name: 'route.ventaslineaventa',
                 component: () => import(/* webpackChunkName: "todos-update" */ '@/components/presupuestoFuncionario/analisisClientes/ventasPorLineaVentaDeCliente'),
+            },
+            { path: 'ventasLineasBphCliente',
+                name: 'route.ventaslineasMktBphCliente',
+                component: () => import(/* webpackChunkName: "todos-update" */ '@/components/presupuestoFuncionario/analisisClientes/ventasPorLineaDeMktBPHCliente'),
+            },
+            { path: 'ventasLineasCofarCliente',
+                name: 'route.ventaslineasMktCofarCliente',
+                component: () => import(/* webpackChunkName: "todos-update" */ '@/components/presupuestoFuncionario/analisisClientes/ventasPorLineaDeMktCofarCliente'),
             },
 
         ]
-    }
+    },
+    {
+        path: '/cumplimientoFucionario/seguimientoDashboardFuncionario',
+        name: 'route.dashboarFuncionarioCumplimiento',
+        component: () => import(/* webpackChunkName: "todos-update" */ '@/pages/cumplimientoFucionario/seguimientoDashboardFuncionario'),
+        redirect: {
+            name: 'route.cumplimientoFucionarioLineaVenta'
+        },
+        children: [
+            { alias: '',
+                path: 'cumplimientoFucionarioLineaVenta',
+                name: 'route.cumplimientoFucionarioLineaVenta',
+                component: () => import(/* webpackChunkName: "todos-update" */ '@/components/presupuestoFuncionario/dashboardFuncionarioCumplimiento/cumplimientoFuncionarioLineaVenta'),
+            },
+            { alias: '',
+                path: 'cumplimientoFucionarioLineaMktBPH',
+                name: 'route.cumplimientoFucionarioLineaMktBPH',
+                component: () => import(/* webpackChunkName: "todos-update" */ '@/components/presupuestoFuncionario/dashboardFuncionarioCumplimiento/cumplimientoFuncionarioLineaMktBPH'),
+            },
+            { alias: '',
+                path: 'cumplimientoFucionarioLineaMktCOFAR',
+                name: 'route.cumplimientoFucionarioLineaMktCOFAR',
+                component: () => import(/* webpackChunkName: "todos-update" */ '@/components/presupuestoFuncionario/dashboardFuncionarioCumplimiento/cumplimientoFuncionarioLineaMktCOFAR'),
+            },
+        ]
+    },
 ]
 
 const router = new VueRouter({
