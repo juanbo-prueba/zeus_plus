@@ -13,4 +13,16 @@ export default {
             console.log('Error servicio obtenerKpiFuncionarioCumplimiento');
         }
     },
+    obtenerDatosGraficoBarrasLineaDeVentaFuncionario: async function( codPersonal ) {
+        const requestData = {
+            method: 'get',
+            url: "dashboardFuncionario/graficoBarrasLineaDeVentaFuncionario/"+codPersonal
+        }
+        try {
+            const response = await ApiService.customRequest(requestData);
+            return response.data;
+        } catch (error) {
+            console.log('Error servicio obtenerDatosGraficoBarrasLineaDeVentaFuncionario');
+        }
+    },
 }

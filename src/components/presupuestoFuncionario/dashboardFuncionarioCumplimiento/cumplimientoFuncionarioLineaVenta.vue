@@ -1,6 +1,16 @@
 <template>
     <div>
-        <apexchart width="600" type="bar" :options="columnChart.options" :series="columnChart.series"></apexchart>
+
+        <br/>
+
+        <GraficoBarrasAgrupado
+            :datosGraficoBarras = "listaDatosGraficoDeBarras"
+            :tituloGrafico = "tituloGrafico"
+            :colores = "colores"
+            :width = "width"
+            :columnWidth = "columnWidth">
+
+        </GraficoBarrasAgrupado>
 
         <br/>
 
@@ -78,84 +88,31 @@
 </template>
 
 <script>
+    import {mapState, mapActions, mapGetters} from 'vuex';
+    import GraficoBarrasAgrupado from "../../graficos/GraficoBarrasAgrupado";
+
     export default {
         name: "cumplimientoFuncionarioLineaVenta",
+        components: {GraficoBarrasAgrupado},
         data() {
             return{
-                columnChart: {
-                    options: {
-                        chart: {
-                            height: 350,
-                            type: 'bar'
-                        },
-                        title: {
-                            text: 'Profit & Margin Chart',
-                            align: 'center'
-                        },
-                        plotOptions: {
-                            bar: {
-                                horizontal: false,
-                                columnWidth: '30%',
-                                endingShape: 'rounded' /*flat*/
-                            },
-                        },
-                        dataLabels: {
-                            enabled: false
-                        },
-                        stroke: {
-                            show: true,
-                            width: 2,
-                            colors: ['transparent']
-                        },
-                        colors: ['#9265b3', '#82ca9d'],
-                        xaxis: {
-                            categories: ['Breskot Farma', 'COFAR'],
-                            axisBorder: {
-                                show: true,
-                                color: 'rgba(182, 194, 201, 0.5)',
-                                height: 1,
-                                width: '100%',
-                                offsetX: 0,
-                                offsetY: -1
-                            },
-                            axisTicks: {
-                                show: true,
-                                borderType: 'solid',
-                                color: '#b6c2c9',
-                                height: 6,
-                                offsetX: 0,
-                                offsetY: 0
-                            }
-                        },
-                        yaxis: {
-                            title: {
-                                text: '$ (thousands)'
-                            }
-                        },
-                        fill: {
-                            opacity: 1
-                        },
-                        tooltip: {
-                            y: {
-                                formatter: function (val) {
-                                    return "$ " + val + " thousands"
-                                }
-                            }
-                        }
-                    },
-                    series: [{
-                        name: 'Presupuesto',
-                        data: [90, 80]
-                    }, {
-                        name: 'Ventas',
-                        data: [60, 40]
-                    }]
-                }
+                tituloGrafico: "Cumplimiento por Linea de Venta",
+                colores: ["#9265b3", "#82ca9d"],
+                width: "55%",
+                columnWidth: "30%"
             }
-        }
+        },
+        mounted() {
+            this.cargarDatosGraficoBarrasLineaDeVentaFuncionario({codPersonal: this.datosUsuario.usuario.id})
+        },
+        methods: {
+            ...mapActions('dashboardFuncionarioCumplimientoStore', ['cargarDatosGraficoBarrasLineaDeVentaFuncionario']),
+        },
+        computed: {
+            ...mapState('authModule', ['datosUsuario']),
+            ...mapState('dashboardFuncionarioCumplimientoStore', ['listaDatosGraficoDeBarras']),
+        },
+
     }
 </script>
 
-<style scoped>
-
-</style>

@@ -7,9 +7,10 @@
             <div class="news-image" style="background-image: url(/assets/img/login-bg/login-bg-16.jpg)"></div>
             <div class="news-caption">
 
-                <h4 class="caption-title"><b>Color</b> Admin App</h4>
+
+                <h4 class="caption-title"><b>ZEUS</b> Plus</h4>
                 <p>
-                    Download the Color Admin app for iPhone®, iPad®, and Android™. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Una herramienta para hacer mas facil tu trabajo
                 </p>
 
             </div>
@@ -33,7 +34,7 @@
 					<b class="p-l-5 p-r-5">Zeus </b> Plus	</span>-->
 
                 <p class="text-center" >
-                    <img src="../assets/img/user/logozeusvertical.png" height="50%" width="50%"/>
+                    <img src="../assets/img/user/zeus_logo_plus_login.png" height="50%" width="50%"/>
 
 
 

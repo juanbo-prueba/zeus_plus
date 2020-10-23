@@ -14,7 +14,7 @@
 					<span >
 
                 <!-- begin widget-img -->
-					<img src="../../assets/img/user/logozeushorizontal.png" height="80%" width="80%"/>
+					<img src="../../assets/img/user/zeus_logo_plus_cabecera.png" />
 
 
 
